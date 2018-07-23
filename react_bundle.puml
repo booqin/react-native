@@ -1,0 +1,20 @@
+@startuml
+ReactActivityDelegate -> ReactRootView:startReactApplication()
+
+ReactActivityDelegate -> ReactNativeHost:getReactNativeHost
+
+ReactNativeHost -> ReactNativeHost:createReactInstanceManager
+
+ReactNativeHost -> JSBundleLoader:createFileLoader
+
+ReactNativeHost -> ReactInstanceManager:build
+
+ReactRootView -> ReactInstanceManager:createReactContextInBackground()
+
+ReactInstanceManager -> CatalystInstance:runJSBundle()
+
+CatalystInstance -> JSBundleLoader:loadScript
+
+JSBundleLoader -> CatalystInstance:loadScriptFromFile
+
+@enduml

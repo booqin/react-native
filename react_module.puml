@@ -1,0 +1,20 @@
+@startuml
+ReactInstanceManager -> ReactInstanceManager:createReactContext
+
+ReactInstanceManager -> ReactInstanceManager:processPackages
+
+ReactInstanceManager -> ReactApplication:getPackages
+
+ReactInstanceManager -> NativeModuleRegistry:build
+
+ReactInstanceManager -> CatalystInstanceImpl:build
+
+ReactInstanceManager -> CatalystInstanceImpl:setRegistry
+
+CatalystInstanceImpl -> CatalystInstanceImpl:initializeBridge
+
+CatalystInstanceImpl -> NativeModuleRegistry:getJavaModules
+
+
+
+@enduml

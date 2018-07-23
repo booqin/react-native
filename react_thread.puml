@@ -1,0 +1,12 @@
+@startuml
+
+ReactInstanceManager -> ReactContext:createReactContext
+ReactInstanceManager -> CatalystInstanceImpl:Builder
+CatalystInstanceImpl -> ReactQueueConfigurationImpl:create
+
+
+ReactContext -> CatalystInstanceImpl:initializeWithInstance
+
+ReactContext -> ReactQueueConfigurationImpl:getXXXThread
+
+@enduml
