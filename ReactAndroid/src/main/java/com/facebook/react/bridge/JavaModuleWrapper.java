@@ -71,6 +71,7 @@ public class JavaModuleWrapper {
     return mModuleHolder.getName();
   }
 
+  //通过注解获取方法
   @DoNotStrip
   private void findMethods() {
     Systrace.beginSection(TRACE_TAG_REACT_JAVA_BRIDGE, "findMethods");

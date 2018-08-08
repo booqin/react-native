@@ -1,20 +1,31 @@
 @startuml
-ReactInstanceManager -> ReactInstanceManager:createReactContext
-
-ReactInstanceManager -> ReactInstanceManager:processPackages
 
 ReactInstanceManager -> ReactApplication:getPackages
 
-ReactInstanceManager -> NativeModuleRegistry:build
+
+activate ReactInstanceManager
+ReactInstanceManager -> ReactInstanceManager:createReactContext
+
+ReactInstanceManager -> NativeModuleRegistryBuilder:processPackage
+NativeModuleRegistry <-- NativeModuleRegistryBuilder:build
+
+ReactInstanceManager <-- NativeModuleRegistry
 
 ReactInstanceManager -> CatalystInstanceImpl:build
 
-ReactInstanceManager -> CatalystInstanceImpl:setRegistry
+activate CatalystInstanceImpl
 
 CatalystInstanceImpl -> CatalystInstanceImpl:initializeBridge
 
 CatalystInstanceImpl -> NativeModuleRegistry:getJavaModules
 
+NativeModuleRegistry -> JavaModuleWrapper
+
+CatalystInstanceImpl <-- JavaModuleWrapper
+
+deactivate CatalystInstanceImpl
+
+deactivate ReactInstanceManager
 
 
 @enduml

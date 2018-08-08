@@ -1,0 +1,23 @@
+@startuml
+activate ReactRootView
+ReactRootView -> ReactRootView:startReactApplication
+ReactRootView -> ReactInstanceManager:createReactContextInBackground
+
+
+ReactInstanceManager -> ReactContext
+
+ReactInstanceManager -> JSCJavaScriptExecutor:create
+ReactInstanceManager <-- JSCJavaScriptExecutor:initHybrid
+ReactInstanceManager -> CatalystInstanceImpl:build
+
+
+ReactRootView -> ReactInstanceManager:attachRootView
+ReactRootView -> ReactInstanceManager:getCurrentReactContext
+ReactRootView -> ReactContext:getCatalystInstance
+ReactRootView -> CatalystInstanceImpl:getJSModule
+CatalystInstanceImpl -> AppRegistry:proxy
+ReactRootView <-- AppRegistry:appRegistry
+ReactRootView -> AppRegistry:runApplication
+
+deactivate ReactRootView
+@enduml

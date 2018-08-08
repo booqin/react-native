@@ -1,0 +1,58 @@
+@startuml
+'java
+
+
+
+CatalystInstanceImpl -> JSCJavaScriptExecutor:initHybrid
+
+CatalystInstanceImpl -> JavaScriptModuleRegistry:getJavaScriptModule
+
+JavaScriptModuleRegistry -> Proxy:newProxyInstance
+
+Proxy -> Proxy:invoke
+
+Proxy -> CatalystInstanceImpl:callFunction
+
+CatalystInstanceImpl -> PendingJSCall:call
+
+PendingJSCall -> CatalystInstanceImpl:jniCallJSFunction
+
+
+'c++
+
+CatalystInstanceImpl -> OnLoadCxx:initHybrid
+OnLoadCxx -> AndroidJSCFactoryCxx:makeAndroidJSCExecutorFactory
+CatalystInstanceImpl <-- AndroidJSCFactoryCxx:jSCExecutorFactory
+CatalystInstanceImpl -> CatalystInstanceImplCxx:initializeBridge
+
+CatalystInstanceImplCxx -> JavaScriptExecutorHolderCxx:getExecutorFactory
+
+JavaScriptExecutorHolderCxx -> JSCExecutorFactoryCxx
+
+CatalystInstanceImplCxx <-- JavaScriptExecutorHolderCxx:jSCExecutorFactory
+
+CatalystInstanceImplCxx -> InstanceCxx:initializeBridge
+
+InstanceCxx -> NativeToJsBridgeCxx:initializeBridge
+
+NativeToJsBridgeCxx -> JSCExecutorFactoryCxx:createJSExecutor
+JSCExecutorFactoryCxx -> JSCExecutorCxx
+NativeToJsBridgeCxx <-- JSCExecutorCxx
+
+CatalystInstanceImpl -> CatalystInstanceImplCxx:jniCallJSFunction
+
+CatalystInstanceImplCxx -> InstanceCxx:callJSFunction
+
+InstanceCxx -> NativeToJsBridgeCxx : callFunction
+
+NativeToJsBridgeCxx -> JSCExecutorCxx:callFunction
+
+
+'js
+AppRegistryJS -> BatchedBridgeJS:registerCallableModule
+JSCExecutorCxx -> JSCExecutorCxx:bindBridge
+JSCExecutorCxx -> BatchedBridgeJS:callFunctionReturnFlushedQueue
+BatchedBridgeJS -> MessageQueueJS:callFunction
+
+
+@enduml

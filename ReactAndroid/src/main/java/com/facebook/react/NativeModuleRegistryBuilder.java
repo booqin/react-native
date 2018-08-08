@@ -94,9 +94,11 @@ public class NativeModuleRegistryBuilder {
             mReactApplicationContext,
             mReactInstanceManager);
       } else {
+        //低版本使用的获取自己添加的Modules
         nativeModules = reactPackage.createNativeModules(mReactApplicationContext);
       }
       for (NativeModule nativeModule : nativeModules) {
+        //添加到本地
         addNativeModule(nativeModule);
       }
     }
@@ -119,7 +121,7 @@ public class NativeModuleRegistryBuilder {
           "that module is being created twice. " +
           "If this was your intention, set canOverrideExistingModule=true");
       }
-
+      //在特点模式下移除
       mModules.remove(existingNativeModule);
     }
 

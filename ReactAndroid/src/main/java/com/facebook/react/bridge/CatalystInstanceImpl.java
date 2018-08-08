@@ -121,8 +121,8 @@ public class CatalystInstanceImpl implements CatalystInstance {
       jsExecutor,
       mReactQueueConfiguration.getJSQueueThread(),
       mNativeModulesQueueThread,
-      mNativeModuleRegistry.getJavaModules(this),
-      mNativeModuleRegistry.getCxxModules());
+      mNativeModuleRegistry.getJavaModules(this), //注册JavaModules
+      mNativeModuleRegistry.getCxxModules()); //注册C++
     Log.d(ReactConstants.TAG, "Initializing React Xplat Bridge after initializeBridge");
 
     mJavaScriptContextHolder = new JavaScriptContextHolder(getJavaScriptContext());

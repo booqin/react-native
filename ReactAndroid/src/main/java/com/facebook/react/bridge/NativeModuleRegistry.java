@@ -22,6 +22,7 @@ import com.facebook.systrace.Systrace;
 public class NativeModuleRegistry {
 
   private final ReactApplicationContext mReactApplicationContext;
+  //注意其解构，Map为 class类对象作为key，
   private final Map<Class<? extends NativeModule>, ModuleHolder> mModules;
   private final ArrayList<ModuleHolder> mBatchCompleteListenerModules;
 
