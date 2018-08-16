@@ -657,8 +657,10 @@ public class UIImplementation {
       .flush();
     final long commitStartTime = SystemClock.uptimeMillis();
     try {
+      //这里开始更新层级，layout由yoga实现
       updateViewHierarchy();
       mNativeViewHierarchyOptimizer.onBatchComplete();
+      //
       mOperationsQueue.dispatchViewUpdates(batchId, commitStartTime, mLastCalculateLayoutTime);
     } finally {
       Systrace.endSection(Systrace.TRACE_TAG_REACT_JAVA_BRIDGE);

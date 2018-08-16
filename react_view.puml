@@ -1,0 +1,45 @@
+@startuml
+'未加载
+activate ReactActivityDelegate
+ReactActivityDelegate -> ReactActivityDelegate: onCreate
+ReactActivityDelegate <-- ReactRootView
+
+ReactActivityDelegate -> Activity:setContentView
+
+deactivate ReactActivityDelegate
+
+ReactRootView <-- ViewRootImpl:traversals
+
+activate ReactRootView
+
+ReactRootView -> ReactRootView:onMeasure
+
+ReactRootView -> ReactInstanceManager:attachRootView
+
+ReactInstanceManager -> CatalystInstance:getNativeModule
+CatalystInstance -> UIManagerModule
+ReactInstanceManager <-- UIManagerModule
+
+ReactInstanceManager -> UIManagerModule:addRootView
+
+UIManagerModule -> UIImplementation:registerRootView
+
+UIImplementation -> NativeViewHierarchyManager:addRootView
+
+deactivate ReactRootView
+
+activate UIManagerModule
+
+UIManagerModule -> UIImplementation:createView
+
+UIImplementation -> NativeViewHierarchyOptimizer:handleCreateView
+NativeViewHierarchyOptimizer -> UIViewOperationQueue:enqueueCreateView
+
+UIViewOperationQueue -> NativeViewHierarchyManager:createView
+
+NativeViewHierarchyManager -> ViewManager:createView
+
+deactivate UIManagerModule
+
+
+@enduml

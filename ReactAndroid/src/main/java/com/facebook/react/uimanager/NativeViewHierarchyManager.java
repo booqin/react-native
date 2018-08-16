@@ -256,7 +256,7 @@ public class NativeViewHierarchyManager {
         .flush();
     try {
       ViewManager viewManager = mViewManagers.get(className);
-
+      //获取View，由实现ViewManager的子类完成createView，Android View
       View view = viewManager.createView(themedContext, mJSResponderHandler);
       mTagsToViews.put(tag, view);
       mTagsToViewManagers.put(tag, viewManager);
@@ -266,6 +266,7 @@ public class NativeViewHierarchyManager {
       // creating another (potentially much more expensive) mapping from view to React tag
       view.setId(tag);
       if (initialProps != null) {
+        //传入初始化参数
         viewManager.updateProperties(view, initialProps);
       }
     } finally {

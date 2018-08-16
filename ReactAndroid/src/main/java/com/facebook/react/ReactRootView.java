@@ -150,6 +150,7 @@ public class ReactRootView extends SizeMonitoringFrameLayout
       // Check if we were waiting for onMeasure to attach the root view.
       if (mReactInstanceManager != null && !mIsAttachedToInstance) {
         attachToReactInstanceManager();
+        //开启Layout计算的相关操作
         enableLayoutCalculation();
       } else {
         enableLayoutCalculation();

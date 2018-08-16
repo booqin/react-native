@@ -387,6 +387,8 @@ void jni_YGNodeCalculateLayout(
       static_cast<float>(width),
       static_cast<float>(height),
       YGNodeStyleGetDirection(_jlong2YGNodeRef(nativePointer)));
+
+  //递归
   YGTransferLayoutOutputsRecursive(root);
 }
 

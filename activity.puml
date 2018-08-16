@@ -1,0 +1,27 @@
+@startuml
+
+activate Activity
+Activity -> Activity:attach
+Activity <-- PhoneWindow
+Activity -> PhoneWindow:setWindowManager
+PhoneWindow -> WindowManage
+WindowManage -> WindowManagerGlobal
+
+Activity -> PhoneWindow:getWindowManager
+
+Activity <-- WindowManage
+
+deactivate Activity
+
+Activity ->Activity
+
+activate Activity
+Activity -> Activity:onCreate
+
+Activity <-- View
+
+Activity -> Window:getContentView
+
+deactivate Activity
+
+@enduml

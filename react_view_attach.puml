@@ -1,0 +1,41 @@
+@startuml
+'未加载
+
+ReactRootView <-- ViewRootImpl:traversals
+
+activate ReactRootView
+
+ReactRootView -> ReactRootView:onMeasure
+ReactRootView -> UIManagerModule:updateRootLayoutSpecs
+UIManagerModule -> UIImplementation:dispatchViewUpdates
+
+activate UIImplementation
+
+UIImplementation -> ReactShadowNode:calculateLayout
+ReactShadowNode -> YogaNode:calculateLayout
+
+YogaNode -> YGJNICxx:jni_YGNodeCalculateLayout
+YGJNICxx -> YGJNICxx:YGTransferLayoutOutputsRecursive
+
+YogaNode <-- YGJNICxx
+
+UIImplementation -> UIImplementation:applyUpdatesRecursive
+ReactShadowNode <-- YogaNode
+UIImplementation -> ReactShadowNode:dispatchUpdates
+ReactShadowNode -> UIViewOperationQueue:enqueueUpdateLayout
+UIViewOperationQueue <-- UpdateLayoutOperation
+UIImplementation -> UIViewOperationQueue:dispatchViewUpdates
+UIViewOperationQueue -> UpdateLayoutOperation:execute
+UpdateLayoutOperation -> NativeViewHierarchyManager:updateLayout
+NativeViewHierarchyManager -> View:layout
+
+
+deactivate UIImplementation
+
+
+
+
+
+deactivate ReactRootView
+
+@enduml
